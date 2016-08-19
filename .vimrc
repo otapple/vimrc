@@ -7,21 +7,21 @@ let mapleader=","
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Bundle 'VundleVim/Vundle.vim'
-Bundle 'bufexplorer.zip'
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'ctrlp.vim'
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'bufexplorer.zip'
+Plugin 'Lokaltog/vim-powerline'
+Plugin 'ctrlp.vim'
 " Bundle 'syntastic'
-Bundle 'delimitMate.vim'
-Bundle 'majutsushi/tagbar'
-Bundle 'SirVer/ultisnips'
-Bundle 'honza/vim-snippets'
-Bundle 'tpope/vim-fugitive'
+Plugin 'delimitMate.vim'
+Plugin 'majutsushi/tagbar'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
 Plugin 'altercation/vim-colors-solarized' " vim theme
-Bundle 'airblade/vim-gitgutter'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'tpope/vim-commentary'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'tpope/vim-commentary'
 Plugin 'mileszs/ack.vim'
 Plugin 'tikhomirov/vim-glsl'
 
