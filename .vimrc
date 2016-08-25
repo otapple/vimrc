@@ -188,4 +188,54 @@ if has("gui_macvim")
     inoremap <silent><d-o> <ESC>:browse tabnew<cr>
 endif
 
+"ack 搜索
 nnoremap <a-f> :Ack -i 
+
+"SET Comment START
+function SetComment()
+	if expand("%:e") == 'lua'
+		let comstr='--'
+		let comspa='	'
+		" call setline(1, comstr.' lua file')
+	elseif expand("%:e") == 'cpp'
+		let comstr='//'
+		let comspa='	'
+		" call setline(1, comstr.'c++ file')
+	elseif expand("%:e") == 'py'
+		let comstr='#'
+		let comspa=''
+		call setline(1, comstr.'!/usr/bin/env python')
+	endif
+
+	call append(1, comstr.'**********************************************************')
+	call append(2, comstr.'	Filename:	'.comspa.expand("%"))
+	call append(3, comstr.'	Author:		'.comspa.'fengqiang')
+	call append(4, comstr.'	Create:		'.comspa.strftime("%Y-%m-%d %H:%M:%S"))
+	call append(5, comstr.'	Last Modified:	'.strftime("%Y-%m-%d %H:%M:%S"))
+	call append(6, comstr)
+	call append(7, comstr.'	Description:')
+	call append(8, comstr.'**********************************************************')
+	call append(9, '')
+	call append(10, '')
+endf
+
+autocmd BufNewFile *.lua,*.cpp,*.py call SetComment() | normal G
+
+"update last modified time
+function FQUpdateModTime()
+	if expand("%:e") == 'lua'
+		let comstr='--'
+	elseif expand("%:e") == 'cpp'
+		let comstr='//'
+	elseif expand("%:e") == 'py'
+		let comstr='#'
+	endif
+
+	call cursor(6, 1)
+	if search('Last Modified') != 0
+		let line = line('.')
+		call setline(line, comstr.'	Last Modified:	'.strftime("%Y-%m-%d %H:%M:%S"))
+	endif
+endf	
+
+autocmd FileWritePre,BufWritePre *lua,*cpp,*py call FQUpdateModTime()
