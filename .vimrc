@@ -187,3 +187,5 @@ if has("gui_macvim")
     noremap <silent><d-o> :browse tabnew<cr>
     inoremap <silent><d-o> <ESC>:browse tabnew<cr>
 endif
+
+nnoremap <a-f> :Ack -i 
