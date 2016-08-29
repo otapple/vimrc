@@ -239,3 +239,22 @@ function FQUpdateModTime()
 endf	
 
 autocmd FileWritePre,BufWritePre *lua,*cpp,*py call FQUpdateModTime()
+
+"syntastic
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+let g:syntastic_lua_checkers = ["luac", "luacheck"]
+let g:syntastic_lua_luachech_args = "--no-unused-args"
+
+let g:syntastic_style_error_symbol = "✗"
+let g:syntastic_style_warning_symbol = "!"
+let g:syntastic_error_symbol = "✗"
+let g:syntastic_warning_symbol = "!"
+
+highlight SyntasticErrorLine guibg=#3f0000
+highlight SyntasticWarningLine guibg=#777700
+highlight SyntasticStyleErrorLine guibg=#3f0000
+highlight SyntasticStyleWarningLine guibg=#777700
