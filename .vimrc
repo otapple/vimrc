@@ -204,22 +204,22 @@ function SetComment()
 	elseif expand("%:e") == 'py'
 		let comstr='#'
 		let comspa=''
-		call setline(1, comstr.'!/usr/bin/env python')
+		" call setline(1, comstr.'!/usr/bin/env python')
 	endif
 
-	call append(1, comstr.'**********************************************************')
-	call append(2, comstr.'	Filename:	'.comspa.expand("%"))
-	call append(3, comstr.'	Author:		'.comspa.'fengqiang')
-	call append(4, comstr.'	Create:		'.comspa.strftime("%Y-%m-%d %H:%M:%S"))
-	call append(5, comstr.'	Last Modified:	'.strftime("%Y-%m-%d %H:%M:%S"))
-	call append(6, comstr)
-	call append(7, comstr.'	Description:')
-	call append(8, comstr.'**********************************************************')
-	call append(9, '')
-	call append(10, '')
+	call append(0, comstr.'**********************************************************')
+	call append(1, comstr.'	Filename:	'.comspa.expand("%"))
+	call append(2, comstr.'	Author:		'.comspa.'fengqiang')
+	call append(3, comstr.'	Create:		'.comspa.strftime("%Y-%m-%d %H:%M:%S"))
+	call append(4, comstr.'	Last Modified:	'.strftime("%Y-%m-%d %H:%M:%S"))
+	call append(5, comstr)
+	call append(6, comstr.'	Description:')
+	call append(7, comstr.'**********************************************************')
+	call append(8, '')
 endf
 
 autocmd BufNewFile *.lua,*.cpp,*.py call SetComment() | normal G
+nnoremap <F2> :call SetComment()<cr>
 
 "update last modified time
 function FQUpdateModTime()
@@ -231,11 +231,13 @@ function FQUpdateModTime()
 		let comstr='#'
 	endif
 
+	let save_cursor = getcurpos()
 	call cursor(6, 1)
 	if search('Last Modified') != 0
 		let line = line('.')
 		call setline(line, comstr.'	Last Modified:	'.strftime("%Y-%m-%d %H:%M:%S"))
 	endif
+	call setpos('.', save_cursor)
 endf	
 
 autocmd FileWritePre,BufWritePre *lua,*cpp,*py call FQUpdateModTime()
@@ -246,8 +248,8 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-let g:syntastic_lua_checkers = ["luac", "luacheck"]
-let g:syntastic_lua_luachech_args = "--no-unused-args"
+" let g:syntastic_lua_checkers = ["luac", "luacheck"]
+" let g:syntastic_lua_luacheck_args = "--no-unused"
 
 let g:syntastic_style_error_symbol = "✗"
 let g:syntastic_style_warning_symbol = "!"
