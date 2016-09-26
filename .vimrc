@@ -24,6 +24,7 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'tpope/vim-commentary'
 Plugin 'mileszs/ack.vim'
 Plugin 'tikhomirov/vim-glsl'
+Plugin 'Tabular'
 
 call vundle#end()
 filetype plugin indent on
@@ -159,6 +160,7 @@ autocmd FileType lua set commentstring=--\ %s
 nmap <F8> :TagbarToggle<CR><C-w>l/
 nmap <F7> :TagbarToggle<CR>
 nnoremap <F5> :!python run.py<CR><CR>
+nnoremap <leader>= :Tab /=<CR>
 
 if has("gui_macvim")
     set macmeta
@@ -205,21 +207,20 @@ function SetComment()
 		let comstr='#'
 		let comspa=''
 		" call setline(1, comstr.'!/usr/bin/env python')
+	else 
+		return
 	endif
 
-	call append(0, comstr.'**********************************************************')
-	call append(1, comstr.'	Filename:	'.comspa.expand("%"))
+	call append(0, comstr)
+	call append(1, comstr.'	Filename:	'.comspa.expand("%:t"))
 	call append(2, comstr.'	Author:		'.comspa.'fengqiang')
 	call append(3, comstr.'	Create:		'.comspa.strftime("%Y-%m-%d %H:%M:%S"))
 	call append(4, comstr.'	Last Modified:	'.strftime("%Y-%m-%d %H:%M:%S"))
 	call append(5, comstr)
-	call append(6, comstr.'	Description:')
-	call append(7, comstr.'**********************************************************')
-	call append(8, '')
 endf
 
 autocmd BufNewFile *.lua,*.cpp,*.py call SetComment() | normal G
-nnoremap <F2> :call SetComment()<cr>
+nnoremap <C-H> :call SetComment()<cr>
 
 "update last modified time
 function FQUpdateModTime()
@@ -244,7 +245,7 @@ autocmd FileWritePre,BufWritePre *lua,*cpp,*py call FQUpdateModTime()
 
 "syntastic
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
