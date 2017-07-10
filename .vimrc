@@ -1,5 +1,7 @@
 "取消兼容
 set nocompatible
+"设置全屏
+set fu
 
 let mapleader=","
 
@@ -11,6 +13,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'bufexplorer.zip'
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'ctrlp.vim'
+Plugin 'tacahiroy/ctrlp-funky'
 Plugin 'syntastic'
 Plugin 'delimitMate.vim'
 Plugin 'majutsushi/tagbar'
@@ -25,6 +28,11 @@ Plugin 'tpope/vim-commentary'
 Plugin 'mileszs/ack.vim'
 Plugin 'tikhomirov/vim-glsl'
 Plugin 'Tabular'
+"Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
+Plugin 'justinj/vim-react-snippets'
+Plugin 'tpope/vim-surround'
+Plugin 'rizzatti/dash.vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -50,6 +58,9 @@ set nowb
 set guifont=Monaco:h18
 set lines=50 columns=150
 
+" autocmd FileType javascript set tabstop=2 
+" autocmd FileType javascript set softtabstop=2 
+" autocmd FileType javascript set shiftwidth=2
 "let g:Powerline_symbols='fancy'
 
 "ultisnips
@@ -66,8 +77,6 @@ let g:UltiSnipsEditSplit="vertical"
 let g:ctrlp_by_filename=1
 
 "nerdtree
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " NERDTress File highlighting
@@ -147,10 +156,8 @@ highlight YcmErrorLine guibg=#3F0000
 let g:ycm_warning_symbol = '!'
 highlight YcmWarningLine guibg=#777700
 
-nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR> " 跳转到定义处
-
 "ctrlp
-set wildignore+=*/runtime/*,*/frameworks/*,*/log/*,*/tmp/*,*/writable/*,*.so,*.swp,*.zip,*png
+set wildignore+=*/runtime/*,*/frameworks/*,*/log/*,*/tmp/*,*/writable/*,*.so,*.swp,*.zip,*png,*csb
 
 "vim-ccommentary
 autocmd FileType python,shell set commentstring=#\ %s
@@ -249,8 +256,8 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-" let g:syntastic_lua_checkers = ["luac", "luacheck"]
-" let g:syntastic_lua_luacheck_args = "--no-unused"
+let g:syntastic_lua_checkers = ["luac", "luacheck"]
+let g:syntastic_lua_luacheck_args = "--codes --config luacheckrc"
 
 let g:syntastic_style_error_symbol = "✗"
 let g:syntastic_style_warning_symbol = "!"
@@ -261,3 +268,15 @@ highlight SyntasticErrorLine guibg=#3f0000
 highlight SyntasticWarningLine guibg=#777700
 highlight SyntasticStyleErrorLine guibg=#3f0000
 highlight SyntasticStyleWarningLine guibg=#777700
+
+"enable jsx for files with the .js extension
+let g:jsx_ext_required = 0
+
+"Ctrlp funky
+nnoremap <F4> :CtrlPFunky<cr>
+" narrow the list down with a word under cursor
+" nnoremap <C-S-M> :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+
+let g:ctrlp_funky_nolim = 1
+let g:ctrlp_funky_matchtype = 'path'
+let g:ctrlp_funky_syntax_highlight = 1
